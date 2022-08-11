@@ -7,9 +7,9 @@
 
 namespace creocoder\flysystem;
 
+use League\Flysystem\AdapterInterface;
 use League\Flysystem\DirectoryListing;
 use League\Flysystem\Filesystem as NativeFilesystem;
-use League\Flysystem\FilesystemAdapter;
 use League\Flysystem\FilesystemReader;
 use yii\base\Component;
 
@@ -40,7 +40,7 @@ abstract class Filesystem extends Component
     /**
      * @var \League\Flysystem\Config|array|string|null
      */
-    public $config;
+    public $config = [];
 
     /**
      * @var \League\Flysystem\FilesystemInterface
@@ -58,7 +58,7 @@ abstract class Filesystem extends Component
     }
 
     /**
-     * @return FilesystemAdapter
+     * @return AdapterInterface
      */
     abstract protected function prepareAdapter();
 

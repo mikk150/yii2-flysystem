@@ -2,29 +2,48 @@
 
 namespace creocoder\flysystem;
 
-use AsyncAws\S3\S3Client;
-use League\Flysystem\AsyncAwsS3\AsyncAwsS3Adapter;
+use Aws\S3\S3Client;
+use League\Flysystem\AwsS3V3\AwsS3V3Adapter;
+use yii\helpers\ArrayHelper;
 
-class AsyncAwsS3Filesystem extends Filesystem
+class AwsS3Filesystem extends Filesystem
 {
-    public $accessKeyId;
+    public $s3ClientOptions;
 
-    public $accessKeySecret;
+    public $key;
+
+    public $secret;
+
+    public $credentials;
 
     public $region;
 
     public $bucket;
 
+    /**
+     * @var string
+     */
+    public $version;
+
     public $prefix = '';
 
     protected function prepareAdapter()
     {
-        $client = new S3Client([
-            'accessKeyId' => $this->accessKeyId,
-            'accessKeySecret' => $this->accessKeySecret,
+        $options = ArrayHelper::merge($this->s3ClientOptions, [
             'region' => $this->region,
+            'version' => ($this->version !== null ? $this->version : 'latest') 
         ]);
 
-        return new AsyncAwsS3Adapter($client, $this->bucket, $this->prefix);
+        if ($this->credentials !== null) {
+            $options['credentials'] = $this->credentials;
+        } else {
+            $options['credentials'] = [
+                'key' => $this->key,
+                'secret' => $this->secret
+            ];
+        }
+        $client = new S3Client($options);
+
+        return new AwsS3V3Adapter($client, $this->bucket, $this->prefix);
     }
 }
