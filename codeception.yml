@@ -1,0 +1,16 @@
+actor_suffix: Tester
+namespace: tests
+bootstrap: _bootstrap.php
+paths:
+    tests: tests
+    output: tests/_output
+    data: tests/_data
+    support: tests/_support
+    envs: tests/_envs
+extensions:
+    enabled:
+        - Codeception\Extension\RunFailed
+coverage:
+  enabled: true
+  include:
+    - ./src/*.php

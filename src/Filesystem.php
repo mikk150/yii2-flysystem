@@ -7,10 +7,9 @@
 
 namespace creocoder\flysystem;
 
-use League\Flysystem\AdapterInterface;
 use League\Flysystem\DirectoryListing;
 use League\Flysystem\Filesystem as NativeFilesystem;
-use League\Flysystem\FilesystemReader;
+use League\Flysystem\FilesystemAdapter;
 use yii\base\Component;
 
 /**
@@ -48,17 +47,7 @@ abstract class Filesystem extends Component
     protected $filesystem;
 
     /**
-     * @inheritdoc
-     */
-    public function init()
-    {
-        $adapter = $this->prepareAdapter();
-
-        $this->filesystem = new NativeFilesystem($adapter, $this->config);
-    }
-
-    /**
-     * @return AdapterInterface
+     * @return FilesystemAdapter
      */
     abstract protected function prepareAdapter();
 
@@ -69,14 +58,20 @@ abstract class Filesystem extends Component
      */
     public function __call($method, $parameters)
     {
-        return call_user_func_array([$this->filesystem, $method], $parameters);
+        return call_user_func_array([$this->getFilesystem(), $method], $parameters);
     }
 
+    private $_filesystem;
     /**
      * @return \League\Flysystem\FilesystemOperator
      */
     public function getFilesystem()
     {
-        return $this->filesystem;
+        if (!$this->_filesystem) {
+            $adapter = $this->prepareAdapter();
+            $this->_filesystem = new NativeFilesystem($adapter, $this->config);
+        }
+
+        return $this->_filesystem;
     }
 }

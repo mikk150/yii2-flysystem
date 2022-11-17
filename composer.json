@@ -27,19 +27,24 @@
     ],
     "require": {
         "yiisoft/yii2": "~2.0.0",
-        "league/flysystem": "^2.0.0|^3.0.0"
+        "league/flysystem": "^2.0.0 || ^3.0.0"
     },
     "require-dev": {
-        "league/flysystem-async-aws-s3": "^2.0.0|^3.0.0",
-        "league/flysystem-aws-s3-v3": "^2.0.0|^3.0.0",
-        "league/flysystem-azure-blob-storage": "^2.0.0|^3.0.0",
-        "league/flysystem-ftp": "^2.0.0|^3.0.0",
-        "league/flysystem-google-cloud-storage": "^2.0.0|^3.0.0",
-        "league/flysystem-memory": "^2.0.0|^3.0.0",
-        "league/flysystem-sftp-v3": "^2.0.0|^3.0.0",
-        "league/flysystem-webdav": "^3.0.0",
-        "league/flysystem-ziparchive": "^2.0.0|^3.0.0",
+        "codeception/codeception": "^4.0 || ^5.0.0",
+        "codeception/module-asserts": "^3.0 || ^1.1",
+        "phpunit/phpunit": "~9.5.0",
+        "league/flysystem-async-aws-s3": "^2.0.0 || ^3.0.0",
+        "league/flysystem-aws-s3-v3": "^2.0.0 || ^3.0.0",
+        "league/flysystem-ftp": "^2.0.0 || ^3.0.0",
+        "league/flysystem-google-cloud-storage": "^2.0.0 || ^3.0.0",
+        "league/flysystem-memory": "^2.0.0 || ^3.0.0",
+        "league/flysystem-sftp-v3": "^2.0.0 || ^3.0.0",
+        "league/flysystem-ziparchive": "^2.0.0 || ^3.0.0",
         "spatie/flysystem-dropbox": "^2.0.0"
+    },
+    "suggest": {
+        "league/flysystem-azure-blob-storage": "For azure blob storage",
+        "league/flysystem-webdav": "For webdav storage"
     },
     "repositories": [
         {
